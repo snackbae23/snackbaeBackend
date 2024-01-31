@@ -31,7 +31,55 @@ exports.sendOTP = async (req, res) =>  {
   .catch(err=>console.log(err))
   
         };
-     
+      //otp verification
+        exports.verifyLogin = async (req, res) => {
+                const { contactNumber,otp } = req.body;
+                 sendOtp.verify(contactNumber, otp, (error, data) => {
+                   if (error) {
+                     console.error("Error verifying OTP:", error);
+                     res
+                       .status(500)
+                       .json({
+                         status: "error",
+                         message: "Failed to verify OTP",
+                       });
+                   } else {
+                     if (data.type === "success") {
+                       console.log("OTP verified successfully: login completed", data);
+                       res.json({
+                         status: "success",
+                         message: "OTP verified successfully;login completed",
+                       });
+                         
+                     } else {
+                       console.log("Invalid OTP:", data);
+                       res
+                         .status(400)
+                         .json({ status: "error", message: "Invalid OTP" });
+                     }
+                   }
+                 });
+            const profileDetails = await Profile.create({
+              gender: null,
+              dateOfBirth: null,
+              about: null,
+              contactNumer: null,
+            });
+
+            const user = await User.create({
+              firstName,
+              lastName,
+              email,
+              contactNumber,
+              
+              additionalDetails: profileDetails._id,
+              image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastName}`,
+            });
+        };
+        
+        
+
+
         
        
 
