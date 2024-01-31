@@ -15,3 +15,4 @@ router.post("/retryotp", retryOTP)
 // Route for verifying OTP 
 router.post("/verifyotp", verifyLogin)
 
+module.exports = router;
