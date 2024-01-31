@@ -78,7 +78,23 @@ exports.sendOTP = async (req, res) =>  {
         };
         
         
-
+ exports.retryOTP = async (req, res) => {
+   const { contactNumber, otp } = req.body;
+   sendOtp.retry(contactNumber, otp, (error, data) => {
+     if (error) {
+       console.error("Error retrying OTP:", error);
+       res
+         .status(500)
+         .json({ status: "error", message: "Failed to retry OTP" });
+     } else {
+       console.log("OTP retry initiated successfully:", data);
+       res.json({
+         status: "success",
+         message: "OTP retry initiated successfully",
+       });
+     }
+   });
+ };
 
         
        
