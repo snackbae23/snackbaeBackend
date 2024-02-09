@@ -11,7 +11,7 @@ const AddMenu = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
+    // required: true,
   },
   Type: {
     type: [String],
