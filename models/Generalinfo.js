@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Generalinfo = new mongoose.Schema({
   image: {
     type: String,
-    required: true,
+    // required: true,
   },
   BusinessName: {
     type: String,
