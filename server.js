@@ -6,8 +6,11 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const becomePartnerRoute = require("./routes/becomePartner");
+const userRoute = require("./routes/User")
 const PORT = process.env.PORT || 4000;
-
+const galleryRoute = require("./routes/gallery");
+const menuRoute = require("./routes/menu");
+ const payoutRoute = require("./routes/payout");
 //database connect
 dbconnect();
 
@@ -21,6 +24,10 @@ app.use(
 );
 
 app.use("/api", becomePartnerRoute);
+app.use("/api", galleryRoute);
+app.use("/api", menuRoute);
+app.use("/api", payoutRoute);
+app.use("/api", userRoute);
 
 app.listen(PORT, () => {
   console.log(`App is running at ${PORT}`);
