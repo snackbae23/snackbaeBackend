@@ -2,8 +2,9 @@ const Gallery = require("../models/gallery");
 
 // Function to upload images to the gallery
 const uploadImages = async (req, res) => {
-  console.log(req)
-  try {
+  // console.log(req)
+  console.log(req.body)
+try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ message: "No images were uploaded." });
     }

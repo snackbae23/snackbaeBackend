@@ -1,25 +1,25 @@
 const mongoose = require("mongoose");
 
 const Payout = new mongoose.Schema({
-  AccoutNumber: {
+  AccountNumber: {
     type: Number,
-    required: true,
+    // required: true,
   },
   IFSCcode: {
     type: String,
-    required: true,
+    // required: true,
   },
   BeneficiaryName: {
     type: String,
-    required: true,
+    // required: true,
   },
   UPI: {
     type: String,
-    required: true,
+    // required: true,
   },
   UPINumber: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 
