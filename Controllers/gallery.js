@@ -1,4 +1,18 @@
 const Gallery = require("../models/gallery");
+const express = require("express");
+const formidable = require("formidable");
+const fs = require("fs");
+
+const { PutObjectCommand, S3Client } = require("@aws-sdk/client-s3");
+const s3Client = new S3Client({
+  forcePathStyle: false,
+  endpoint: "https://blr1.digitaloceanspaces.com",
+  region: "blr1",
+  credentials: {
+    accessKeyId: "DO00JDPC8ZXPM2J7LM4P",
+    secretAccessKey: "1eop5QZAQF58V1JNEG+XrLhreWj+rrgTPPqBFSFC8Uk",
+  },
+});
 
 // Function to upload images to the gallery
 const uploadImages = async (req, res) => {
@@ -10,9 +24,40 @@ try {
     }
 
     // Extract file paths from uploaded files
-    const imagePaths = req.files.map((file) => file.path);
+     const form = new formidable.IncomingForm();
+     form.keepExtensions = true;
+     form.parse(req, (err, fields, files) => {
+       if (err) {
+         console.error("Error parsing form data:", err);
+         return res.status(500).json({ error: "Internal Server Error" });
+       }
 
-    // Create a new gallery object with the extracted image paths
+       const file = files.someExpressFiles;
+
+       // Log the file object
+
+       const params = {
+         Bucket: "snackbaev",
+         Key: files.someExpressFiles[0]?.originalFilename,
+         Body: fs.createReadStream(files.someExpressFiles[0]?.filepath), // Use file.filepath instead of file.path
+         ACL: "public-read",
+       };
+
+       const uploadObject = async () => {
+         try {
+           const data = await s3Client.send(new PutObjectCommand(params));
+           console.log(
+             "Successfully uploaded object: " + params.Bucket + "/" + params.Key
+           );
+           return data;
+         } catch (err) {
+           console.log("Error", err);
+         }
+       };
+
+       // Step 5: Call the uploadObject function.
+       uploadObject();
+     });
     const gallery = new Gallery({
       image: imagePaths,
     });
