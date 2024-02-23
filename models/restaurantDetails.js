@@ -1,87 +1,35 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const resDetails = new mongoose.Schema({
-    restaurantName: {
-        type: String,
-        // required: true,
-    },
-    cuisineType: {
-        type: String,
-        // required: true,
-    },
-    location: {
-        type: String,
-        // required: true,
-    },
-    pocContact: {
-        type: String,
-        // required: true,
-    },
-    email : {
-        type: String,
-        // required: true,
-    },
-    contactPerson: {
-        type: String,
-        // required: true,
-    },
-    openingHour: {
-        type: String,
-        // required: true,
-    },
-    closingHour: {
-        type: String,
-        // required: true,
-    },
-    reservationPolicy: {
-        type: String,
-        // required: true,
-    },
-    ambienceDescription: {
-        type: String,
-        // required: true,
-    },
-    capacity: {
-        type: Number,
-        // required: true,
-    },
-    numberOfTables: {
-        type: Number,
-        // required: true,
-    },
-    specialties: {
-        type: String,
-        // required: true,
-    },
-    currentPromotions: {
-        type: String,
-        // required: true,
-    },
-    dietaryRestrictions: {
-        type: String,
-        // required: true,
-    },
-    preferredPaymentMethod: {
-        type: String,
-        // required: true,
-    },
-    specialties1: {
-        type: String,
-        // required: true,
-    },
-    currentPromotion: {
-        type: String,
-        // required: true,
-    },
-    agree: {
-        type: String,
-        // required: true,
-    }
-    // login:{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref:"RestaurantLogin",
-    // }
+// Define schema for the restaurant details
+const restaurantDetails = new Schema({
+  FSSAInumber: { type: String },
+  authorizedMail: { type: String },
+  averageCost: { type: String },
+  capacity: { type: String },
+
+  closingHour: { type: String },
+
+  customerContact: { type: String },
+  location: { type: String },
+  managerContact: { type: String },
+  managerName: { type: String },
+  numberOfTables: { type: String },
+  offDay: { type: String },
+  openAllDay: { type: Boolean },
+  openingHour: { type: String },
+  paymentMethods: { type: [String] },
+  pic: { type: String },
+  restaurantName: { type: String },
+  salesRepresentative: { type: String },
+  selectedCategory: { type: [String] },
+  selectedCuisine: { type: [String] },
 });
 
-const RestaurantDetails = mongoose.model("RestaurantDetails",resDetails);
+// Create model from schema
+const RestaurantDetails = mongoose.model(
+  "RestaurantDetails",
+  restaurantDetails
+);
+
 module.exports = RestaurantDetails;
