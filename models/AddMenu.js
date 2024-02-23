@@ -1,24 +1,20 @@
 const mongoose = require("mongoose");
 
 const AddMenu = new mongoose.Schema({
-  ItemName: {
+  menuItem: {
     type: String,
     required: true,
   },
-  cuisineType: {
+  type: {
     type: String,
     required: true,
   },
-  image: {
+  pic: {
     type: String,
     // required: true,
   },
-  Type: {
-    type: [String],
-    required: true,
-  },
-  Cuisines: {
-    type: [String],
+  cuisines: {
+    type: String,
     required: true,
   },
 });
