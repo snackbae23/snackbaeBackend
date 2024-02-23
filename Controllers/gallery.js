@@ -16,13 +16,9 @@ const s3Client = new S3Client({
 
 // Function to upload images to the gallery
 const uploadImages = async (req, res) => {
-  // console.log(req)
-  console.log(req.body)
+  
 try {
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No images were uploaded." });
-    }
-
+    let image_url;
     // Extract file paths from uploaded files
      const form = new formidable.IncomingForm();
      form.keepExtensions = true;
@@ -45,11 +41,12 @@ try {
 
        const uploadObject = async () => {
          try {
-           const data = await s3Client.send(new PutObjectCommand(params));
-           console.log(
-             "Successfully uploaded object: " + params.Bucket + "/" + params.Key
-           );
-           return data;
+           const data = await s3Client.send(new PutObjectCommand(params))
+           image_url=`https://snackbaev.blr1.digitaloceanspaces.com/${params.Key}`
+            res.status(201)
+              .json({
+                image_url: image_url
+              });
          } catch (err) {
            console.log("Error", err);
          }
@@ -58,14 +55,9 @@ try {
        // Step 5: Call the uploadObject function.
        uploadObject();
      });
-    const gallery = new Gallery({
-      image: imagePaths,
-    });
 
     // Save the gallery object to the database
-    const savedGallery = await gallery.save();
-
-    res.status(201).json(savedGallery);
+    
   } catch (err) {
     console.error("Error uploading images:", err);
     res.status(500).json({ message: "Internal server error." });
