@@ -12,7 +12,11 @@ const resLogin = new mongoose.Schema({
     password:{
         type:String,
         // required:true,
-    }
+    },
+    menu:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"AddMenu"
+    }]
 });
 
 const RestaurantLogin = mongoose.model("RestaurantLogin",resLogin);
