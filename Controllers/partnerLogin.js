@@ -11,7 +11,7 @@ const generateJwt = (id) => {
 exports.partnerLogin = async (req, res) => {
   const { email, password } = req.body;
 
-  let user = await restaurantLogin.findOne({ username: email });
+  let user = await restaurantLogin.findOne({ username: email }).populate('details');
 
   if (!user) {
     return res.status(400).json({
@@ -27,9 +27,11 @@ exports.partnerLogin = async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(201).json({
+      email: user.details.authorizedMail,
+      restaurantName: user.details.restaurantName,
       _id: user._id,
       username: user.username,
-      details: user.details,
+      // details: user.details,
       token: generateJwt(user.id),
     });
   }
