@@ -30,7 +30,7 @@ const createBooking = async (req, res) => {
     // Check if the restaurant exists
     let restaurant = await restaurantDetails.findOne({_id:restaurantId});
     if (!restaurant) {
-      return res.status(404).json({ error: "Restaurant not found" });
+      return res.status(404).json({ message: "Restaurant not found" });
     }
 
     // Create a new booking
