@@ -19,6 +19,7 @@ const restaurantDetails = new Schema({
   openingHour: { type: String },
   paymentMethods: { type: [String] },
   pic: { type: String },
+  logo:{type:String},
   restaurantName: { type: String },
   salesRepresentative: { type: String },
   selectedCategory: { type: [Object] },
