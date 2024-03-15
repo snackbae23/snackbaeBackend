@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const AddMenu = new mongoose.Schema({
   menuItem: {
     type: String,
-    required: true,
+    // required: true,
   },
   type: {
     type: String,
-    required: true,
+    // required: true,
   },
   pic: {
     type: String,
@@ -15,18 +15,16 @@ const AddMenu = new mongoose.Schema({
   },
   cuisines: {
     type: String,
-    required: true,
   },
   price: {
     type: Number,
-    
   },
   users: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }
-  ]
+      ref: "User",
+    },
+  ],
 });
 
 module.exports = mongoose.model("AddMenu", AddMenu);
