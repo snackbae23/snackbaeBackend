@@ -113,7 +113,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Payment Failed" });
     }
-    const { restaurantId, amount, userId } = req.body.bodydata;
+    const { id, amount, userId } = req.body.bodydata;
 
     let body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
