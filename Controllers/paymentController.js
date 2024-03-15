@@ -123,7 +123,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
 
     if (expectedSignature === razorpay_signature) {
       // Process further actions (e.g., update restaurant status, send confirmation emails, etc.)
-      await savepayment(amount, restaurantId, userId, res);
+      await savepayment(amount, id, userId, res);
       return res
         .status(200)
         .json({ success: true, message: "Payment verified successfully" });
@@ -140,7 +140,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
   }
 };
 
-const savepayment = async (amount, restaurantId, userId, res) => {
+const savepayment = async (amount, id, userId, res) => {
   // const restaurant = await RestaurantDetails.findOne({
   //   resturantId: restaurantId,
   // });
@@ -153,13 +153,13 @@ const savepayment = async (amount, restaurantId, userId, res) => {
   // }
   const payment = new Payment({
     amount: amount,
-    restaurant_id: restaurantId,
+    restaurant_id: id,
     user: userId,
     
   });
   await payment.save();
   const reestaurant = await RestaurantDetails.findOneAndUpdate(
-    { _id: restaurantId },
+    { _id: id },
     { $push: { payments: payment._id } },
     { new: true } // Return the updated document
   );
