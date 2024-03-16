@@ -141,6 +141,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
 };
 
 const savepayment = async (amount, id, userId, res) => {
+  console.log(amount);
   // const restaurant = await RestaurantDetails.findOne({
   //   resturantId: restaurantId,
   // });
