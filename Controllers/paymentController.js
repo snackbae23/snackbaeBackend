@@ -195,7 +195,7 @@ exports.getAllPaymentsByRestaurantByDate = async (req, res) => {
 
      if (payments.length === 0) {
        return res.status(404).json({
-         error: "No payments found for this restaurant on the specified date",
+         message: "No payments found for this restaurant on the specified date",
        });
      }
 
