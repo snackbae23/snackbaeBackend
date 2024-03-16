@@ -113,7 +113,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Payment Failed" });
     }
-    const { id, amountt, userId } = req.body.bodydata;
+    const { id, amount, userId } = req.body.bodydata;
 
     let body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
@@ -123,7 +123,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
 
     if (expectedSignature === razorpay_signature) {
       // Process further actions (e.g., update restaurant status, send confirmation emails, etc.)
-      await savepayment(amountt, id, userId, res);
+      await savepayment(amount, id, userId, res);
       return res
         .status(200)
         .json({ success: true, message: "Payment verified successfully" });
@@ -140,7 +140,7 @@ exports.verifyPaymentForRestaurant = async (req, res) => {
   }
 };
 
-const savepayment = async (amountt, id, userId, res) => {
+const savepayment = async (amount, id, userId, res) => {
   // const restaurant = await RestaurantDetails.findOne({
   //   resturantId: restaurantId,
   // });
@@ -152,7 +152,7 @@ const savepayment = async (amountt, id, userId, res) => {
   //     .json({ success: false, message: "Restaurant not found" });
   // }
   const payment = new Payment({
-    amount: amountt,
+    amount: amount,
     restaurant_id: id,
     user: userId,
     
