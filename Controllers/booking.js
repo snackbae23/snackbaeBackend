@@ -198,8 +198,8 @@ const getAllBookingsByRestaurantByDate = async (req, res) => {
 
     if (bookings.length === 0) {
       return res
-        .status(404)
-        .json({ error: "No bookings found for this restaurant" });
+        .status(201)
+        .json({ message: "No bookings found for this restaurant" });
     }
 
     res.status(200).json({ bookings });
